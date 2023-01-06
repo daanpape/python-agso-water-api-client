@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-agso-water-api-client"
+version = "0.0.1"
+authors = [
+  { name="Daan Pape", email="daan@dptechnics.com" },
+]
+description = "A Python client for the Knokke-Heist AGSO water meter API"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/daanpape/python-agso-water-api-client"
+"Bug Tracker" = "https://github.com/daanpape/python-agso-water-api-client/issues"
