@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+agso/__init__.py
+agso/client.py
+python_agso_water_api_client.egg-info/PKG-INFO
+python_agso_water_api_client.egg-info/SOURCES.txt
+python_agso_water_api_client.egg-info/dependency_links.txt
+python_agso_water_api_client.egg-info/requires.txt
+python_agso_water_api_client.egg-info/top_level.txt

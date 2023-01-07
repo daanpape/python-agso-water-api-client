@@ -1,4 +1,7 @@
-import AgsoClient
+from agso.client import AgsoClient
 
-api = AgsoClient("username", "password")
-print(api.get_current_meter_reading())
+username = input("Enter your AGSO username: ")
+password = input("Enter your AGSO password: ")
+
+client = AgsoClient(username, password)
+print(client.get_current_meter_reading())

@@ -6,7 +6,7 @@ from datetime import datetime
 class AgsoAddress(NamedTuple):
     street: str
     number: str
-    muncipality: str
+    municipality: str
     zipcode: str
     country: str
     building_name: str
