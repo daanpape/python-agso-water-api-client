@@ -1,4 +1,5 @@
 import requests
+import typing
 
 from .model import AgsoAddress
 from .model import AgsoMeter
@@ -17,6 +18,7 @@ class AgsoClient:
         self.token = None
 
     def authenticate(self) -> bool:
+        """Authenticate to the AGSO API and store the token, returns True on success."""
         req = requests.post(
             AgsoClient.BASE_URL + "authenticate",
             json={"email": self.username, "password": self.password},
@@ -34,31 +36,36 @@ class AgsoClient:
         self.token = resp["token"]
         return True
 
-    def get_subscribers(self) -> list[AgsoSubscriber]:
-        req = None
+    def __authenticated_get(self, url: str) -> typing.Any:
+        """Perform an authenticated GET request, returns the response as an object."""
+        resp = None
 
         if self.token == None:
             if not self.authenticate():
-                return []
+                return None
 
         for _ in range(2):
-            req = requests.get(
-                AgsoClient.BASE_URL + "water/subscribers",
+            resp = requests.get(
+                AgsoClient.BASE_URL + url,
                 headers={"Authorization": "Bearer " + self.token},
                 timeout=5000,
             )
 
-            if req.status_code == 200:
+            if resp.status_code == 200:
                 break
 
-            if req.status_code == 401:
+            if resp.status_code == 401:
                 if not self.authenticate():
                     return []
+        
+        return resp.json()
+        
 
-        if req.status_code != 200:
-            return []
-
-        resp = req.json()
+    def get_subscribers(self) -> list[AgsoSubscriber]:
+        "Get all subscribers assigned to the API user, returns a list of AgsoSubscribers or None on error."
+        resp = self.__authenticated_get("water/subscribers")
+        if resp == None:
+            return None
 
         subscribers = []
         for rs in resp:
